@@ -45,6 +45,7 @@ def main(file_name="input.txt"):
                 i = i + 4
             elif opc == 3:
                 if get_par_mode(instruction, 1) == 0:
+                    print("Enter input code")
                     lst[lst[i + 1]] = int(input())
                 else:
                     raise Exception("Illegal parameter mode for save location")
@@ -52,6 +53,28 @@ def main(file_name="input.txt"):
             elif opc == 4:
                 print(get_parameter(lst, i, instruction, 1))
                 i = i + 2
+            elif opc == 5:
+                if get_parameter(lst, i, instruction, 1) != 0:
+                    i = get_parameter(lst, i, instruction, 2)
+                else:
+                    i = i + 3
+            elif opc == 6:
+                if get_parameter(lst, i, instruction, 1) == 0:
+                    i = get_parameter(lst, i, instruction, 2)
+                else:
+                    i = i + 3
+            elif opc == 7:
+                if get_parameter(lst, i, instruction, 1) < get_parameter(lst, i, instruction, 2):
+                    lst[lst[i + 3]] = 1
+                else:
+                    lst[lst[i + 3]] = 0
+                i = i + 4
+            elif opc == 8:
+                if get_parameter(lst, i, instruction, 1) == get_parameter(lst, i, instruction, 2):
+                    lst[lst[i + 3]] = 1
+                else:
+                    lst[lst[i + 3]] = 0
+                i= i + 4
             elif opc == 99:
                 print('done')
                 break
