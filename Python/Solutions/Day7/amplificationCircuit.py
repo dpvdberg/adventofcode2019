@@ -1,18 +1,20 @@
 from Solutions.Day5.Intcode import IntCode
-
+import itertools
 
 class AmplifierIntCode(IntCode):
-    l = []
+    input = []
+    output = []
     curr_index = 0
     first = True
 
     def provide_input(self):
-        input = self.l[self.curr_index + (0 if self.first else 1)]
+        input = self.input[self.curr_index] if self.first else self.output[self.curr_index - 1]
         self.first = not self.first
+
         return input
 
     def provide_output(self, output):
-        self.l[self.curr_index + 3] = output
+        self.output[self.curr_index] = output
 
     def number_to_base(self, n, b):
         if n == 0:
@@ -28,26 +30,25 @@ class AmplifierIntCode(IntCode):
 
     def max_amplifier_output(self):
         maximum = 0
-        max_i = 0
-        for i in range(0, 3125):
-            convert = self.number_to_base(i, 5)
-            while len(convert) < 5:
-                convert.insert(0, 0)
-            convert.append(0)
-            for j in range(1, (len(convert)) * 2, 2):
-                convert.insert(j, 0)
-            self.l = convert
-            print(convert)
+
+        for z in itertools.permutations(range(0, 5)):
+
+            self.input = z
+            self.output = [0] * 5
             self.curr_index = 0
+            self.first = True
+
+            print(z)
             for j in range(0, 5):
                 self.start_amplifier()
-                self.curr_index = self.curr_index + 2
-            output = self.l[11]
+                self.curr_index = self.curr_index + 1
+
+            output = self.output[-1]
+
             if output > maximum:
                 maximum = output
-                max_i = self.number_to_base(i, 5)
+
         print(maximum)
-        print(max_i)
 
 
 i = AmplifierIntCode()
