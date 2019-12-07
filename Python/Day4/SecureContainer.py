@@ -1,5 +1,5 @@
 passwords = 0
-for i in range(307237, 769059):
+for i in range(109165, 576723):
     adjacent = False
     decreasing = False
     l = list(map(int, str(i)))
