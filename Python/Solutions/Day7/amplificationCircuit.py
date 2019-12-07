@@ -28,6 +28,7 @@ class AmplifierIntCode(IntCode):
 
     def max_amplifier_output(self):
         maximum = 0
+        max_i = 0
         for i in range(0, 3125):
             convert = self.number_to_base(i, 5)
             while len(convert) < 5:
@@ -40,11 +41,13 @@ class AmplifierIntCode(IntCode):
             self.curr_index = 0
             for j in range(0, 5):
                 self.start_amplifier()
-                output = self.l[11]
-                if output > maximum:
-                    maximum = output
                 self.curr_index = self.curr_index + 2
+            output = self.l[11]
+            if output > maximum:
+                maximum = output
+                max_i = self.number_to_base(i, 5)
         print(maximum)
+        print(max_i)
 
 
 i = AmplifierIntCode()
