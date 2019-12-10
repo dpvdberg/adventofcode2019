@@ -1,6 +1,9 @@
 from Solutions.Day5.Intcode import IntCode
 import itertools
 
+
+
+
 class AmplifierIntCode(IntCode):
     input = []
     output = []
