@@ -5,10 +5,17 @@ with open("input.txt") as file:
     n = 150
     chunks = [lst[i:i + n] for i in range(0, len(lst), n)]
 
-    max_count = [sys.maxsize]*3
+    width = 25
+    height = 6
+    final_image = [[2 for x in range (0, width)] for x in range (0, height)]
     for chunk in chunks:
-        count = [0] * 3
-        for i in range(0, 3):
-            count[i] = len(list(filter(lambda x: x == i, chunk)))
-        max_count = count if count[0] < max_count[0] else max_count
-    print(max_count[1] * max_count[2])
+        width = width
+        rows = [chunk[i:i + width] for i in range(0, len(chunk), width)]
+        for p in range(0, height):
+            for q in range(0, width):
+                if final_image[p][q] == 2:
+                    final_image[p][q] = rows[p][q]
+    for p in range(0, height):
+        for q in range(0, width):
+            print(final_image[p][q], end='')
+        print()
