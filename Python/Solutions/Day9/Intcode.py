@@ -113,5 +113,5 @@ class IntCode:
             continue
 
 
-i = IntCode()
-i.main()
+#i = IntCode()
+#i.main()
