@@ -1,4 +1,5 @@
 import math
+from operator import itemgetter
 
 
 def angle(p, coord):
@@ -101,10 +102,35 @@ def visible_astroids(p, coordinates):
     return count
 
 
-def main():
-    coordinates = parse_input()
-    print(list(zip(coordinates, [visible_astroids(p, coordinates) for p in coordinates])))
-    print(max([visible_astroids(p, coordinates) for p in coordinates]))
+# TODO: return coordinate, not the maximum...
+def best_location(coordinates):
+    z = zip(coordinates, [visible_astroids(p, coordinates) for p in coordinates])
+    return max(z, key=itemgetter(1))[0]
 
 
-main()
+def part_two(p, coordinates, count):
+    lst = angle_sort(p, coordinates)
+
+    for coordinate in lst:
+        inters = intermediate_coordinates(p, coordinate)
+
+        destroy = True
+        for inter in inters:
+            if inter in lst:
+                destroy = False
+                break
+
+        if destroy:
+            coordinates.remove(coordinate)
+            count = count + 1
+            if count == 200:
+                print(coordinate[0] * 100 + coordinate[1])
+                return
+
+    part_two(p, coordinates, count)
+
+
+inp = parse_input()
+p = best_location(inp)
+inp.remove(p)
+part_two(p, inp, 0)
