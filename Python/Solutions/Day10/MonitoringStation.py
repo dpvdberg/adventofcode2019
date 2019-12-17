@@ -13,20 +13,20 @@ def angle(p, coord):
     angle = math.atan2(deltaY, deltaX)
 
     if cx > px:
-        if cy > py:
+        if cy < py:
             # first quadrant
             return angle
-        elif cy < py:
+        elif cy > py:
             # second quadrant
             return angle + 0.5 * math.pi
         else:
             # to the right of p
             return 0.5 * math.pi
     elif cx < px:
-        if cy > py:
+        if cy < py:
             # fourth quadrant
             return angle + 1.5 * math.pi
-        elif cy < py:
+        elif cy > py:
             # third quadrant
             return angle + math.pi
         else:
@@ -34,10 +34,10 @@ def angle(p, coord):
             return 1.5 * math.pi
     else:
         # same x value
-        if cy > py:
+        if cy < py:
             # above p
             return 0
-        elif cy < py:
+        elif cy > py:
             return math.pi
         else:
             raise Exception("Could not find angle, p == coord ??")
