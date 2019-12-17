@@ -1,6 +1,52 @@
 import math
 
 
+def angle(p, coord):
+    px = p[0]
+    py = p[1]
+    cx = coord[0]
+    cy = coord[1]
+
+    deltaX = abs(px - cx)
+    deltaY = abs(py - cy)
+
+    angle = math.atan2(deltaY, deltaX)
+
+    if cx > px:
+        if cy > py:
+            # first quadrant
+            return angle
+        elif cy < py:
+            # second quadrant
+            return angle + 0.5 * math.pi
+        else:
+            # to the right of p
+            return 0.5 * math.pi
+    elif cx < px:
+        if cy > py:
+            # fourth quadrant
+            return angle + 1.5 * math.pi
+        elif cy < py:
+            # third quadrant
+            return angle + math.pi
+        else:
+            # to the left of p
+            return 1.5 * math.pi
+    else:
+        # same x value
+        if cy > py:
+            # above p
+            return 0
+        elif cy < py:
+            return math.pi
+        else:
+            raise Exception("Could not find angle, p == coord ??")
+
+
+def angle_sort(p, coordinates):
+    return sorted(coordinates, key=lambda coord: angle(p, coord))
+
+
 def common_divs(a, b):
     return [i for i in range(2, min(a, b) + 1) if a % i == b % i == 0]
 
@@ -33,7 +79,8 @@ def intermediate_coordinates(a, b):
         return [(a[0] + w_sign * i, a[1]) for i in range(1, width)]
     else:
         divs = common_divs(width, height)
-        inter = [[(round(w_sign * j * width / i + a[0]), round(h_sign * j * height / i + a[1])) for j in range(1, i)] for i in divs]
+        inter = [[(round(w_sign * j * width / i + a[0]), round(h_sign * j * height / i + a[1])) for j in range(1, i)]
+                 for i in divs]
         return [item for sublist in inter for item in sublist]
 
 
