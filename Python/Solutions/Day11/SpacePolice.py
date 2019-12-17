@@ -80,8 +80,8 @@ def main():
     min_y = min(grid) - 1
     max_x = max([max(value) for key, value in grid.items()]) + 1
     min_x = min([min(value) for key, value in grid.items()]) - 1
-    for x in range(min_x, max_x + 1):
-        for y in range(min_y, max_y + 1):
+    for y in range(min_y, max_y + 1):
+        for x in range(min_x, max_x + 1):
             print(grid[y][x], end="")
         print("")
 
