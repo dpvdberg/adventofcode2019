@@ -36,17 +36,18 @@ def main():
     comp = FeedbackAmplifier2()
     game = []
     count = 0
+    score = 0
     while True:
-        x = comp.input_to_output(None)
+        x = comp.input_to_output([0])
         #print(x)
         if x is None:
             break
         y = comp.input_to_output(None)
         title_id = comp.input_to_output(None)
-        if title_id == 2:
-            count = count + 1
-        #game.append((x, y, title_id))
-    print(count)
+        if x == -1 and y == 0:
+            print(score)
+        elif title_id == 4:
+            print((x, y, title_id))
 
 
 main()
