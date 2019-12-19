@@ -33,7 +33,11 @@ class FeedbackAmplifier2(IntCode):
 
     def provide_input(self):
         print_grid()
-        return int(input())
+        if self.pending_input:
+            return self.pending_input.pop()
+        # return int(input())
+
+        raise Exception("No input...")
 
     def provide_output(self, o):
         self.pending_output = o
@@ -52,17 +56,22 @@ class FeedbackAmplifier2(IntCode):
 
 def main():
     comp = FeedbackAmplifier2()
-    game = []
-    count = 0
-    score = 0
+    ball = (18, 21)
+    peddle = (20, 24)
     while True:
-        x = comp.input_to_output(None)
+        input = [0]
+        if ball[0] > peddle[0]:
+            input = [1]
+        elif ball[0] < peddle[0]:
+            input = [-1]
+        x = comp.input_to_output(input)
+        # print(x)
         if x is None:
             break
         y = comp.input_to_output(None)
         title_id = comp.input_to_output(None)
         if x == -1 and y == 0:
-            print(score)
+            print("score", title_id)
         elif title_id == 1:
             grid[x][y] = 'X'
         elif title_id == 2:
@@ -70,10 +79,12 @@ def main():
         elif title_id == 3:
             remove_element('=')
             grid[x][y] = '='
+            peddle = (x, y)
         elif title_id == 4:
             remove_element('O')
             grid[x][y] = 'O'
             print_grid()
+            ball = (x, y)
 
 
 main()
