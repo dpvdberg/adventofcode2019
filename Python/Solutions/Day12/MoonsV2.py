@@ -1,5 +1,6 @@
-import numpy
 import functools
+import math
+
 
 def read_input(file="input.txt"):
     with open(file) as file:
@@ -22,6 +23,10 @@ def count(l):
     return [greater(l, i) - less(l, i) for i in range(0, len(l))]
 
 
+def lcm(a, b):
+    return abs(a * b) // math.gcd(a, b)
+
+
 def main():
     P = read_input()
     cycle = []
@@ -39,6 +44,7 @@ def main():
             if pos0 == pos and vel0 == vel:
                 cycle.append(step)
                 break
-    print(functools.reduce(numpy.lcm, cycle))
+    print(functools.reduce(lcm, cycle))
+
 
 main()
