@@ -38,17 +38,27 @@ def part1(filename='input.txt'):
     rules = sanitize_input(filename)
     print(calc_ore_needs("FUEL", 1, rules, defaultdict(lambda: 0)))
 
+
 def part2(filename='input.txt'):
     rules = sanitize_input(filename)
     ore_count = 1000000000000
     spare = defaultdict(lambda: 0)
 
     i = 0
-    while i <= 0 or len([value for key, value in spare.items() if value > 0]) > 0:
-        ore_needs = calc_ore_needs("FUEL", 1, rules, spare)
+    while ore_count >= 0:
+        ore_needs = calc_ore_needs("FUEL", 1000, rules, spare)
+        i = i + 1000
+        if ore_needs > ore_count:
+            i = i - 1000
+            while ore_count >= 0:
+                ore_needs = calc_ore_needs("FUEL", 1, rules, spare)
+                ore_count = ore_count - ore_needs
+
+                i = i + 1
+            i = i - 1
+
         ore_count = ore_count - ore_needs
         print(ore_count)
-        i = i + 1
 
     print(i)
 
