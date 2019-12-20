@@ -4,7 +4,7 @@ def sanitize_input(filename='input.txt'):
         for line in file:
             from_to = line.split("=>")
             ingredients = from_to[0].strip().split(",")
-            ingredients = [tuple(x.split()) for x in ingredients]
+            ingredients = {x.split()[1] : int(x.split()[0]) for x in ingredients}
             (result_count, result_ingredient) = from_to[1].strip().split()
             production_rules[result_ingredient] = (result_count, ingredients)
 
