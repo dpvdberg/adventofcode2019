@@ -29,7 +29,8 @@ def calc_ore_needs(result, result_count, production_rules, spare):
         if amount < 0:
             continue
         ore_count = ore_count + calc_ore_needs(ingredient, amount, production_rules, spare)
-        spare[result] = spare[result] + (rule_mult * count) - result_count
+
+    spare[result] = spare[result] + (rule_mult * count) - result_count
     return ore_count
 
 
