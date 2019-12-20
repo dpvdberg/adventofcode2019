@@ -10,13 +10,14 @@ def sanitize_input(filename='input.txt'):
 
     return production_rules
 
-def calc_ore_needs(result, production_rules):
+def calc_ore_needs(result, result_count, production_rules):
     (count, ingredients) = production_rules[result]
-    # TODO return number of ores needed to produce result
+    # TODO return number of ores needed to produce result_count results
 
     # if only ores needed for result return ores
     # else
-    # ores needed = sum over ingredients : ingredient_count * calc_ore_needs(ingredient, production_rules)
+    # TODO: ongeveer zoiets:
+    # ores needed = result_count / count * sum over ingredients : ingredient_count * calc_ore_needs(ingredient, production_rules)
     pass
 
 def part1(filename='input.txt'):
