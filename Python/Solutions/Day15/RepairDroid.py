@@ -58,7 +58,9 @@ def dfs(droid, visited, i=0, pos=(0, 0)):
             continue
         status = droid.input_to_output([d])
         if status == 2:
-            return i + 1
+            answer = dfs_max(droid, defaultdict(lambda: defaultdict(lambda: -1)))
+            print("answer", answer)
+            exit()
         elif status == 0:
             visited[changed[0]][changed[1]] = 0
         elif status == 1:
@@ -68,6 +70,22 @@ def dfs(droid, visited, i=0, pos=(0, 0)):
             raise Exception("Illegal output")
     visited[pos[0]][pos[1]] = -1
     return min(path_lengths)
+
+
+def dfs_max(droid, visited, i=0, pos=(0, 0)):
+    visited[pos[0]][pos[1]] = 1
+    path_lengths = [i]
+    for d in directions:
+        changed = tuple(map(sum, zip(pos, vector[d])))
+        if visited[changed[0]][changed[1]] != -1:
+            continue
+        status = droid.input_to_output([d])
+        if status == 0:
+            visited[changed[0]][changed[1]] = 0
+        else:
+            path_lengths.append(dfs_max(droid, visited, i + 1, changed))
+            droid.input_to_output([directions[d]])
+    return max(path_lengths)
 
 
 def part1():
