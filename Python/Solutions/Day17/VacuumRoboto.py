@@ -43,13 +43,26 @@ class FeedbackAmplifier2(IntCode):
 def parse_input(robot):
     ascii_grid = []
     output = robot.input_to_output(None)
-    while output is not None:
-        print(output)
+    prev = output
+    while not (prev == 10 and output == 10):
+        prev = output
         ascii_grid.append(output)
         output = robot.input_to_output(None)
     grid = ''.join((map(chr, ascii_grid)))
     grid = grid.strip()
+    print(grid)
     grid = grid.split('\n')
+    return grid
+
+def print_sentence(robot):
+    ascii_grid = []
+    output = robot.input_to_output(None)
+    while not output == 10:
+        ascii_grid.append(output)
+        output = robot.input_to_output(None)
+    grid = ''.join((map(chr, ascii_grid)))
+    grid = grid.strip()
+    print(grid)
     return grid
 
 
@@ -76,13 +89,16 @@ def part1():
 
 def part2():
     robot = FeedbackAmplifier2()
-    main = 10
-    functionA = 10
-    functionB = 10
-    functionC = 10
-    input = [main, functionA, functionB, functionC]
-
-    print(parse_input(robot))
+    parse_input(robot)
+    print_sentence(robot)
+    main = [65, 44, 66, 44, 67, 10]
+    func_a = [76, 10]
+    func_b = [76, 10]
+    func_c = [76, 10]
+    print(robot.input_to_output(main))
+    print_sentence(robot)
+    print_sentence(robot)
+    print_sentence(robot)
 
 
 part2()
