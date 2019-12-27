@@ -58,8 +58,9 @@ def dfs(droid, visited, i=0, pos=(0, 0)):
             continue
         status = droid.input_to_output([d])
         if status == 2:
+            print("answer part 1", i)
             answer = dfs_max(droid, defaultdict(lambda: defaultdict(lambda: -1)))
-            print("answer", answer)
+            print("answer part 2", answer)
             exit()
         elif status == 0:
             visited[changed[0]][changed[1]] = 0
@@ -88,11 +89,11 @@ def dfs_max(droid, visited, i=0, pos=(0, 0)):
     return max(path_lengths)
 
 
-def part1():
+def part12():
     visited = defaultdict(lambda: defaultdict(lambda: -1))
     droid = FeedbackAmplifier2()
     i = dfs(droid, visited)
     print(i)
 
 
-part1()
+part12()
