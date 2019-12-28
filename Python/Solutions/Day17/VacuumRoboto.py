@@ -19,8 +19,6 @@ class FeedbackAmplifier2(IntCode):
         IntCode.__init__(self, file_name)
 
     def provide_input(self):
-        print("input")
-        return int(input())
         if self.pending_input:
             return self.pending_input.pop()
 
@@ -195,7 +193,7 @@ def part2():
         define_function(robot, func)
     video = [110, 10]
     define_function(robot, video)
-    while True:ppppp
+    while True:
         print(robot.input_to_output(None))
     # prev = output
     # while not (output == '' and prev == ''):
