@@ -70,6 +70,28 @@ def part2_attempt2():
 pattern_map = {0: 0, 1: 1, 2: 0, 3: -1}
 
 
+def part2_attempt3():
+    signal = parse_input() * 10000
+    print(get_phase_output(signal, 100))
+
+
+def get_phase_output(input_data, num_phases):
+    output = calculate(input_data, num_phases)
+    print(output)
+    message = ''.join([str(d) for d in output[:8]])
+    return message
+
+
+def calculate(input_data, num_phases):
+    data = input_data
+    for i in range(0, num_phases):
+        sum = 0
+        for j in range(len(data) - 1, -1, -1):
+            sum += data[j]
+            data[j] = sum % 10
+    return data
+
+
 def get_value(phase, index, value_dict, signal_length):
     if phase == 0:
         return value_dict[phase][index]
@@ -91,4 +113,4 @@ def get_value(phase, index, value_dict, signal_length):
     return v
 
 
-part2_attempt2()
+part2_attempt3()
