@@ -20,7 +20,6 @@ class FeedbackAmplifier2(IntCode):
 
     def provide_input(self):
         if self.pending_input:
-            print('bla')
             return self.pending_input.pop()
 
         raise Exception("No input...")
@@ -30,6 +29,8 @@ class FeedbackAmplifier2(IntCode):
 
     def input_to_output(self, feedback_input):
         self.pending_input = feedback_input
+        if feedback_input:
+            self.pending_input.reverse()
         self.pending_output = None
 
         while self.IP < len(self.lst):
@@ -54,10 +55,11 @@ def parse_input(robot):
     grid = grid.split('\n')
     return grid
 
+
 def print_sentence(robot):
     ascii_grid = []
     output = robot.input_to_output(None)
-    while not output == 10:
+    while not output == 10 and output is not None:
         ascii_grid.append(output)
         output = robot.input_to_output(None)
     grid = ''.join((map(chr, ascii_grid)))
@@ -87,18 +89,31 @@ def part1():
     print(sum)
 
 
+def define_function(robot, function):
+    print(chr(robot.input_to_output(function)), end='')
+    print_sentence(robot)
+
+
 def part2():
     robot = FeedbackAmplifier2()
     parse_input(robot)
     print_sentence(robot)
-    main = [65, 44, 66, 44, 67, 10]
-    func_a = [76, 10]
-    func_b = [76, 10]
-    func_c = [76, 10]
-    print(robot.input_to_output(main))
-    print_sentence(robot)
-    print_sentence(robot)
-    print_sentence(robot)
+    main = [65, 44, 66, 44, 65, 44, 67, 44, 65, 44, 66, 44, 67, 44, 65, 44, 66, 44, 67, 10]
+    #func_a = [82, 44, 56, 44, 82, 44, 49, 48, 44, 82, 49, 48, 44, 82, 44, 52, 44, 82, 44, 56, 44, 82, 44, 49, 48, 10]
+    func_a = [82, 44, 56, 44, 82, 44, 49, 48, 44, 82, 44, 49, 48, 10]
+    func_b = [82, 44, 52, 44, 82, 44, 56, 44, 82, 44, 49, 48, 44, 82, 44, 49, 50, 10]
+    func_c = [82, 44, 49, 50, 44, 82, 44, 52, 44, 76, 44, 49, 50, 44, 76, 44, 49, 50, 10]
+    total = [main, func_a, func_b, func_c]
+    for func in total:
+        define_function(robot, func)
+    video = [110, 10]
+    define_function(robot, video)
+    while True:ppppp
+        print(robot.input_to_output(None))
+    # prev = output
+    # while not (output == '' and prev == ''):
+    #     prev = output
+    #     output = print_sentence(robot)
 
 
 part2()

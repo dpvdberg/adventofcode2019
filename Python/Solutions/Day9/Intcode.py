@@ -101,7 +101,7 @@ class IntCode:
             self.relative_base = self.relative_base + self.get_parameter(self.lst, self.IP, instruction, 1)
             self.IP = self.IP + 2
         elif opc == 99:
-            print('done')
+            #print('done')
             return True
         else:
             raise Exception("Illegal opcode!")
